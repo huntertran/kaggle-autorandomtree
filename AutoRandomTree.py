@@ -62,21 +62,25 @@ def find_mae():
 def find_features():
     mae = -1
 
-    for meta_feature in meta_features_dataframe.iterrows():
-        if meta_feature[1]['is_checked'] == 0:
+    row_count = len(meta_features_dataframe)
+    index = 0
+
+    while index < row_count:
+        if meta_features_dataframe.loc[index, 'is_checked'] == 0:
             # do the work
-            meta_feature[1]['is_include'] = 1
+            meta_features_dataframe.at[index, 'is_include'] = 1
             new_mae = find_mae()
             if mae == -1:
                 mae = new_mae
             elif new_mae <= mae:
                 mae = new_mae
             else:
-                meta_feature[1] = 0
+                meta_features_dataframe.at[index, 'is_include'] = 0
             
-            meta_feature[1]['is_checked'] = 1
-            meta_features_dataframe.to_csv(features_file_path)
+            meta_features_dataframe.loc[index, 'is_checked'] = 1
+            meta_features_dataframe.to_csv(features_file_path, index=False)
 
         print("LOCKED MAE: {:,.0f}".format(mae))
+        index = index + 1
 
 find_features()
