@@ -1,0 +1,10 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "cSpell.words": [
+        "astype",
+        "dtypes",
+        "iterrows"
+    ],
+    "python.formatting.provider": "black"
+}
